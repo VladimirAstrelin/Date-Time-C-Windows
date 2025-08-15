@@ -20,6 +20,14 @@
 INT_PTR CALLBACK DialogProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg) {
+    case WM_GETMINMAXINFO: {
+        MINMAXINFO* pMMI = (MINMAXINFO*)lParam;
+        pMMI->ptMinTrackSize.x = 450;  // Минимальная ширина
+        pMMI->ptMinTrackSize.y = 450;  // Минимальная высота
+		pMMI->ptMaxTrackSize.x = 750;  // Максимальная ширина
+		pMMI->ptMaxTrackSize.y = 650;  // Максимальная высота
+        return TRUE;  
+    }
     case WM_INITDIALOG:
         SetTimer(hwnd, TIMER_ID, 1000, NULL);
         CenterWindow(hwnd);
@@ -61,3 +69,4 @@ int WINAPI wWinMain(
     DialogBoxParamW(hInstance, MAKEINTRESOURCEW(IDD_DIALOG1), NULL, DialogProc, 0);
     return 0;
 }
+
